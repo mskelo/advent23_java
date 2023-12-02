@@ -40,7 +40,7 @@ public class App {
             for (String s : temp) {
                 int red = 0, green = 0, blue = 0;
                 
-                // Split on individuel number+color combos
+                // Split on individual number+color combos
                 String[] temptemp = s.split(",");
                 
                 for (String s1 : temptemp) {
