@@ -1,6 +1,6 @@
 /**
  * Advent of Code 2023
- * Day 2, Part 1
+ * Day 2, Combined exercises 1 and 2
  */
 
 import java.io.IOException;
@@ -26,6 +26,7 @@ public class App {
     public static void main(String[] args) {
         List<String> lines = new ArrayList<String>();
         int sum = 0;
+        int powerSum = 0;
         
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
@@ -40,6 +41,8 @@ public class App {
 
             // Get game number [0]
             int game = Integer.parseInt(temp[0].split(" ")[1]);
+            int minRed = 0, minGreen = 0, minBlue = 0;
+            int powerCubes = 0;
 
             // Parse game data [1]
             // Split on "MiniGame" within Game
@@ -51,22 +54,23 @@ public class App {
                 String[] temptemp = s.split(",");
                 
                 for (String s1 : temptemp) {
-                // Split number from color
+                    // Split number from color
                     String[] temptemptemp = s1.split(" ");
-                    
                     switch(temptemptemp[2]) {
-                        case "red": red = Integer.parseInt(temptemptemp[1]); break;
-                        case "green": green = Integer.parseInt(temptemptemp[1]); break;
-                        case "blue": blue = Integer.parseInt(temptemptemp[1]); break;
+                        case "red":     red = Integer.parseInt(temptemptemp[1]);   if (red > minRed)     { minRed = red; }     break;
+                        case "green":   green = Integer.parseInt(temptemptemp[1]); if (green > minGreen) { minGreen = green; } break;
+                        case "blue":    blue = Integer.parseInt(temptemptemp[1]);  if (blue > minBlue)   { minBlue = blue; }   break;
                     }
                 }
                 
                 // Throw everything into an Object and check if (mini)game is possible
                 MiniGame miniGame = new MiniGame(red, green, blue);
                 if (!miniGame.isPossibleGame()) {
-                    gamePossible = false; break;
+                    gamePossible = false; 
+                    //break;        // Commenting this line fixed my code for part 2 lol
                 }
             }
+            powerSum += minRed*minGreen*minBlue;
             // Add game number to sum for Part 1
             if (gamePossible) {
                 sum += game;
@@ -75,7 +79,6 @@ public class App {
 
         System.out.println("Advent of Code 2023 // Day 2 // Matej Skelo");
         System.out.println("Part 1: " + sum);
+        System.out.println("Part 2: " + powerSum);
     }
 }
-
-
