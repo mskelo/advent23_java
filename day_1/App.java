@@ -51,10 +51,9 @@ public class App {
             } 
 
             // Adds to the sum for part 1 of the exercise
-            sumDigits += (
-                digitsOnly.get(Collections.min(digitsOnly.keySet())) * 10 + 
-                digitsOnly.get(Collections.max(digitsOnly.keySet()))
-            );
+            // n*10^1 + n*10^0
+            sumDigits += 10 * digitsOnly.get(Collections.min(digitsOnly.keySet()))
+                            + digitsOnly.get(Collections.max(digitsOnly.keySet()));
 
             // Merges digitsOnly Map with the other Map that contains the "word numbers"
             digitPositions.putAll(digitsOnly);
