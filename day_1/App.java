@@ -1,7 +1,6 @@
 /**
  * Advent of Code 2023
  * Day 1, Combined exercises 1 and 2
- * foo@matej.zip
  */
 
 import java.io.IOException;
