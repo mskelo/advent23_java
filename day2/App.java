@@ -10,18 +10,6 @@ import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-class MiniGame {
-    private int red = 0, green = 0, blue = 0;
-
-    public MiniGame(int red, int green, int blue) {
-        this.red = red; this.green = green; this.blue = blue;
-    }
-    public boolean isPossibleGame() {
-        return (this.red > 12 || this.green > 13 || this.blue > 14) ? false : true;
-    }
-}
-
-
 public class App {
     public static void main(String[] args) {
         List<String> lines = new ArrayList<String>();
@@ -41,8 +29,10 @@ public class App {
 
             // Get game number [0]
             int game = Integer.parseInt(temp[0].split(" ")[1]);
+            
+            // Minimum number of colored cubes to play the Game (you just lost it)
+            // Multiply and sum later to get the answer for Part 2
             int minRed = 0, minGreen = 0, minBlue = 0;
-            int powerCubes = 0;
 
             // Parse game data [1]
             // Split on "MiniGame" within Game
@@ -62,21 +52,16 @@ public class App {
                         case "blue":    blue = Integer.parseInt(temptemptemp[1]);  if (blue > minBlue)   { minBlue = blue; }   break;
                     }
                 }
-                
-                // Throw everything into an Object and check if (mini)game is possible
-                MiniGame miniGame = new MiniGame(red, green, blue);
-                if (!miniGame.isPossibleGame()) {
-                    gamePossible = false; 
-                    //break;        // Commenting this line fixed my code for part 2 lol
-                }
+                // Speaks for itself. Flips the flag, else just leaves it true;
+                if (red > 12 || green > 13 || blue > 14) { gamePossible = false; }
             }
-            powerSum += minRed*minGreen*minBlue;
-            // Add game number to sum for Part 1
-            if (gamePossible) {
-                sum += game;
-            }
-        } 
+            
+            // Add game number to sum for Part 1 answer
+            if (gamePossible) { sum += game; }
 
+            // Add minimum number of colored cubes to powerSum for Part 2 answer
+            powerSum += minRed * minGreen * minBlue;
+        } 
         System.out.println("Advent of Code 2023 // Day 2 // Matej Skelo");
         System.out.println("Part 1: " + sum);
         System.out.println("Part 2: " + powerSum);
