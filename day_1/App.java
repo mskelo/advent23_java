@@ -60,13 +60,6 @@ public class App {
 
             // Merges digitsOnly Map with the other Map that contains the "word numbers"
             digitPositions.putAll(digitsOnly);
-             
-            // Find highest/lowest positions in String that contain a digit (of any kind)
-            int minValue = 99, maxValue = 0;
-            for (int key : digitPositions.keySet()) {
-                if (key < minValue) { minValue = key; }
-                if (key > maxValue) { maxValue = key; }
-            }
             
             // Calculate sum for part 2 from merged HashMap
             // n*10^1 + n*10^0
