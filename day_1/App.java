@@ -31,22 +31,22 @@ public class App {
             // Look for all numbers that are represented as Strings and convert them to Integer
             // Checks if first and last occurrence in the word are the same
             // If not, it adds both to the result HashMap
-            for (int i = 0; i < strDigits.length; i++) {        
-                if (temp.contains(strDigits[i])) {
-                    digitPositions.put(temp.indexOf(strDigits[i]), i+1);
-                    if (temp.indexOf(strDigits[i]) != temp.lastIndexOf(strDigits[i])) {
-                        digitPositions.put(temp.lastIndexOf(strDigits[i]), i+1);
+            for (int index = 0; index < strDigits.length; index++) {        
+                if (temp.contains(strDigits[index])) {
+                    digitPositions.put(temp.indexOf(strDigits[index]), index+1);
+                    if (temp.indexOf(strDigits[index]) != temp.lastIndexOf(strDigits[index])) {
+                        digitPositions.put(temp.lastIndexOf(strDigits[index]), index+1);
                     }
                 }
             }
 
             HashMap<Integer, Integer> digitsOnly = new HashMap<>();
             // Find only characters that are digits
-            for (int i = 0; i < temp.length(); i++) {
-                char currentChar = temp.charAt(i);
+            for (int index = 0; index < temp.length(); index++) {
+                char currentChar = temp.charAt(index);
                 if (Character.isDigit(currentChar)) {
-                    int value = Character.getNumericValue(currentChar);
-                    digitsOnly.put(i, value);
+                    int digitValue = Character.getNumericValue(currentChar);
+                    digitsOnly.put(index, digitValue);
                 }
             } 
 
