@@ -24,26 +24,26 @@ public class App {
         catch ( IOException e ) { e.printStackTrace(); }
         
         for (Iterator iter = lines.iterator(); iter.hasNext(); ) {
-            // next() advances the loop / Iterator by 1 iteration
-            String temp = iter.next().toString();
+            // next() advances the loop / Iterator by 1
+            String line = iter.next().toString();
             
             HashMap<Integer, Integer> digitPositions = new HashMap<>();
             // Look for all numbers that are represented as Strings and convert them to Integer
             // Checks if first and last occurrence in the word are the same
             // If not, it adds both to the result HashMap
             for (int index = 0; index < strDigits.length; index++) {        
-                if (temp.contains(strDigits[index])) {
-                    digitPositions.put(temp.indexOf(strDigits[index]), index+1);
-                    if (temp.indexOf(strDigits[index]) != temp.lastIndexOf(strDigits[index])) {
-                        digitPositions.put(temp.lastIndexOf(strDigits[index]), index+1);
+                if (line.contains(strDigits[index])) {
+                    digitPositions.put(line.indexOf(strDigits[index]), index+1);
+                    if (line.indexOf(strDigits[index]) != line.lastIndexOf(strDigits[index])) {
+                        digitPositions.put(line.lastIndexOf(strDigits[index]), index+1);
                     }
                 }
             }
 
             HashMap<Integer, Integer> digitsOnly = new HashMap<>();
             // Find only characters that are digits
-            for (int index = 0; index < temp.length(); index++) {
-                char currentChar = temp.charAt(index);
+            for (int index = 0; index < line.length(); index++) {
+                char currentChar = line.charAt(index);
                 if (Character.isDigit(currentChar)) {
                     int digitValue = Character.getNumericValue(currentChar);
                     digitsOnly.put(index, digitValue);
