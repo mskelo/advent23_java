@@ -25,11 +25,10 @@ public class App {
         catch ( IOException e ) { e.printStackTrace(); }
         
         for (Iterator iter = lines.iterator(); iter.hasNext(); ) {
-            HashMap<Integer, Integer> digitPositions = new HashMap<>();
-            
             // next() advances the loop / Iterator by 1 iteration
             String temp = iter.next().toString();
             
+            HashMap<Integer, Integer> digitPositions = new HashMap<>();
             // Look for all numbers that are represented as Strings and convert them to Integer
             // Checks if first and last occurrence in the word are the same
             // If not, it adds both to the result HashMap
@@ -42,8 +41,8 @@ public class App {
                 }
             }
 
-            // Find only characters that are digits
             HashMap<Integer, Integer> digitsOnly = new HashMap<>();
+            // Find only characters that are digits
             for (int i = 0; i < temp.length(); i++) {
                 char currentChar = temp.charAt(i);
                 if (Character.isDigit(currentChar)) {
