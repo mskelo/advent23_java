@@ -5,8 +5,11 @@
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -32,7 +35,7 @@ public class App {
             
             // Minimum number of colored cubes to play the Game (you just lost it)
             // Multiply and sum later to get the answer for Part 2
-            int minRed = 0, minGreen = 0, minBlue = 0;
+            Set<Integer> reds = new HashSet<>() , greens = new HashSet<>(), blues = new HashSet<>();
 
             // Parse game data [1]
             // Split on "MiniGame" within Game
@@ -47,9 +50,9 @@ public class App {
                     // Split number from color
                     String[] temptemptemp = s1.split(" ");
                     switch(temptemptemp[2]) {
-                        case "red":     red = Integer.parseInt(temptemptemp[1]);   if (red > minRed)     { minRed = red; }     break;
-                        case "green":   green = Integer.parseInt(temptemptemp[1]); if (green > minGreen) { minGreen = green; } break;
-                        case "blue":    blue = Integer.parseInt(temptemptemp[1]);  if (blue > minBlue)   { minBlue = blue; }   break;
+                        case "red":   red = Integer.parseInt(temptemptemp[1]);   reds.add(red);     break;
+                        case "green": green = Integer.parseInt(temptemptemp[1]); greens.add(green); break;
+                        case "blue":  blue = Integer.parseInt(temptemptemp[1]);  blues.add(blue);   break;
                     }
                 }
                 // Speaks for itself. Flips the flag, else just leaves it true;
@@ -60,7 +63,7 @@ public class App {
             if (gamePossible) { sum += game; }
 
             // Add minimum number of colored cubes to powerSum for Part 2 answer
-            powerSum += minRed * minGreen * minBlue;
+            powerSum += Collections.max(reds) * Collections.max(greens) * Collections.max(blues);
         } 
         System.out.println("Advent of Code 2023 // Day 2 // Matej Skelo");
         System.out.println("Part 1: " + sum);
