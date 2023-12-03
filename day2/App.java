@@ -16,8 +16,7 @@ import java.nio.file.Paths;
 public class App {
     public static void main(String[] args) {
         List<String> lines = new ArrayList<String>();
-        int sum = 0;
-        int powerSum = 0;
+        int sum = 0, powerSum = 0;
         
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
