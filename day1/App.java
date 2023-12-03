@@ -32,10 +32,11 @@ public class App {
             // Checks if first and last occurrence in the word are the same
             // If not, it adds both to the result HashMap
             for (int index = 0; index < strDigits.length; index++) {        
-                if (line.contains(strDigits[index])) {
-                    digitPositions.put(line.indexOf(strDigits[index]), index+1);
-                    if (line.indexOf(strDigits[index]) != line.lastIndexOf(strDigits[index])) {
-                        digitPositions.put(line.lastIndexOf(strDigits[index]), index+1);
+                String currentNumberStr = strDigits[index];  // "one", "two"...
+                if (line.contains(currentNumberStr)) {
+                    digitPositions.put(line.indexOf(currentNumberStr), index+1);
+                    if (line.indexOf(currentNumberStr) != line.lastIndexOf(currentNumberStr)) {
+                        digitPositions.put(line.lastIndexOf(currentNumberStr), index+1);
                     }
                 }
             }
