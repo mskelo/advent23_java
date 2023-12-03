@@ -35,6 +35,7 @@ public class App {
             
             // Minimum number of colored cubes to play the Game (you just lost it)
             // Multiply and sum later to get the answer for Part 2
+            // Set is used to enable use of Collections.max() and to improve legibility later on 
             Set<Integer> reds = new HashSet<>(), 
                          greens = new HashSet<>(), 
                          blues = new HashSet<>();
@@ -64,7 +65,7 @@ public class App {
             // Add game number to sum for Part 1 answer
             if (gamePossible) { sum += game; }
 
-            // Add minimum number of colored cubes to powerSum for Part 2 answer
+            // Add minimum number of colored cubes to powerSum (using max(), go figure) for Part 2 answer
             powerSum += Collections.max(reds) * Collections.max(greens) * Collections.max(blues);
         } 
         System.out.println("Advent of Code 2023 // Day 2 // Matej Skelo");
