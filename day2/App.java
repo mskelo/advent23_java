@@ -35,7 +35,9 @@ public class App {
             
             // Minimum number of colored cubes to play the Game (you just lost it)
             // Multiply and sum later to get the answer for Part 2
-            Set<Integer> reds = new HashSet<>() , greens = new HashSet<>(), blues = new HashSet<>();
+            Set<Integer> reds = new HashSet<>(), 
+                         greens = new HashSet<>(), 
+                         blues = new HashSet<>();
 
             // Parse game data [1]
             // Split on "MiniGame" within Game
