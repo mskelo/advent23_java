@@ -21,7 +21,7 @@ public class App {
         List<Card> cards = new ArrayList<Card>();
 
         // I/O
-        try   { lines = Files.readAllLines(Paths.get("./input")); } 
+        try   { lines = Files.readAllLines(Paths.get("./calibration")); } 
         catch ( IOException e ) { e.printStackTrace(); }
         
         // Create initial Card Objects
@@ -57,7 +57,7 @@ public class App {
         
         System.out.println("Advent of Code 2023 // Day 4 // Matej Skelo");
         System.out.println("Part 1: " + part1);
-        System.out.println("Part 2: "/* + cards.size()*/);
+        System.out.println("Part 2: " + cards.size());
     }
 }
 
