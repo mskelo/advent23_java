@@ -40,14 +40,14 @@ public class App {
                                                 .filter(str -> !str.isEmpty())
                                                 .map(Integer::parseInt)
                                                 .collect(Collectors.toSet());       
-            int numberOfMatches = 0;
+            int points = 0;
             for(int myNumber : myNumbers) {   
                 if (winningNumbers.contains(myNumber)) {
-                    if (numberOfMatches == 0) { numberOfMatches++; } 
-                    else                      { numberOfMatches *= 2; }
+                    if (points == 0) { points++; } 
+                    else             { points *= 2; }
                 }
             }  
-            sum += numberOfMatches;  
+            sum += points;  
         }
         System.out.println("Advent of Code 2023 // Day 4 // Matej Skelo");
         System.out.println("Part 1: " + sum);
