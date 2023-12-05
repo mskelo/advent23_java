@@ -70,7 +70,11 @@ public class App {
                      length    = Long.parseLong(lines.get(i).split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
                 // This needs to be fixed
-                if (Long.parseLong(seedLocation.get(seed)) >= destRange && Long.parseLong(seedLocation.get(seed)) < destRange + length) {
+                if (seedLocation.get(seed).equals("")) {
+                    seedLocation.put(seed, seed);
+                    System.out.println(seedLocation.get(seed));
+                }
+                else if (Long.parseLong(seedLocation.get(seed)) >= destRange && Long.parseLong(seedLocation.get(seed)) < destRange + length) {
                     String newValue = Long.toString(Long.parseLong(seedLocation.get(seed))-destRange+srcRange);
                     seedLocation.put(seed, newValue);
                     System.out.println("in destRange: "+seedLocation.get(seed));
@@ -80,10 +84,7 @@ public class App {
                     seedLocation.put(seed, newValue);
                     System.out.println("in srcRange: "+seedLocation.get(seed));
                 } 
-                else if (seedLocation.get(seed).equals("")) {
-                    seedLocation.put(seed, seed);
-                    System.out.println(seedLocation.get(seed));
-                }
+                 
             }
         }
     }
