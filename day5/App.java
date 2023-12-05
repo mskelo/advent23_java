@@ -21,23 +21,32 @@ public class App {
     public static void main(String[] args) {
         List<String> lines = new ArrayList<>();         
         List<String> seeds = new ArrayList<>();
-        Map<Integer, Integer> resultMap = new HashMap<>(); // seed: int, soil: int
+        Map<Integer, Integer> seedLocation = new HashMap<>(); // seed: int, soil: int
 
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
-        // Parses line values
+        List<Integer> toNextLoop = new ArrayList<>();
+        // parses the line with the seeds
+        if (lines.get(i).chars().anyMatch(Character::isLetter) && 
+            lines.get(i).chars().anyMatch(Character::isDigit)) 
+        {
+            seeds.addAll(Stream.of(lines.get(i).split(":")[1].split(" "))
+                                .filter(str -> !str.isEmpty())
+                                .collect(Collectors.toList()));
+        }
+
+        System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
+        System.out.println("Part 1: "/*+part1*/);
+        System.out.println("Part 2: " );
+    }
+
+    public int parser(int seed) {
         for (int i = 0; i < lines.size(); i++) {
-            // parses the line with the seeds
-            if (lines.get(i).chars().anyMatch(Character::isLetter) && 
-                lines.get(i).chars().anyMatch(Character::isDigit)) 
-            {
-                seeds.addAll(Stream.of(lines.get(i).split(":")[1].split(" "))
-                                   .filter(str -> !str.isEmpty())
-                                   .collect(Collectors.toList()));
-            }
+            List<Integer> temp = new ArrayList<>();
+
             // the juicy, juicy numbers
-            else if (!lines.get(i).chars().anyMatch(Character::isLetter) &&
+            if (!lines.get(i).chars().anyMatch(Character::isLetter) &&
                       lines.get(i).chars().anyMatch(Character::isDigit)) 
             {
                 long destRange = Long.parseLong(lines.get(i).split(" ")[0]), 
@@ -45,15 +54,36 @@ public class App {
                         length = Long.parseLong(lines.get(i).split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
             } 
-            // map names or empty lines. maybe i'll need these later
-            else 
-            {
-                continue;
+            else if (line.length() == 0) {
+                // flush the Map and 
+            }
+
+            for (int seed : seeds) {
+            
+            }
+
+
+
+            if (seed > d) {
+
             }
         }
-        
-        System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
-        System.out.println("Part 1: "/*+part1*/);
-        System.out.println("Part 2: " );
     }
 }
+
+
+
+// for line in lines
+    // if line ONLY has letters and numbers
+        // put every line in a List until you hit an empty line
+        // push List to parser
+// print seeds.values().min()
+
+// parser(List lines)
+    // for seed in seed.keySet()
+        // for line in lines
+            // if seed > destNr && seed < destNr + length
+                //seeds.seed = seed-dstNr+srcNr
+            // else it's unmapped and keeps its value
+
+
