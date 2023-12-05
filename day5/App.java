@@ -19,8 +19,7 @@ import java.util.stream.*;
 
 public class App {
     static List<String> lines = new ArrayList<>();         
-    static List<String> seeds = new ArrayList<>();
-    static Map<String, String> seedLocation = new HashMap<>(); // seed: int, soil: int
+    static Map<String, String> seedLocation = new HashMap<>();
     public static void main(String[] args) {
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
@@ -65,15 +64,21 @@ public class App {
         System.out.println();
         for (String seed : seedLocation.keySet()) {
             for (int i = 0; i < lines.size(); i++) {
-                System.out.println(seed);
+                System.out.println("\nSeed: "+seed);
                 long destRange = Long.parseLong(lines.get(i).split(" ")[0]),
                      srcRange  = Long.parseLong(lines.get(i).split(" ")[1]),
                      length    = Long.parseLong(lines.get(i).split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
                 // This needs to be fixed
                 if (Long.parseLong(seed) >= destRange && Long.parseLong(seed) < destRange + length) {
-                    seedLocation.replace(seed, Long.toString(Long.parseLong(seed)-destRange+srcRange));
-                } else if (seedLocation.get(seed).equals("")) {
+                    seedLocation.put(seed, Long.toString(Long.parseLong(seed)-destRange+srcRange));
+                    System.out.println("in destRange: "+seedLocation.get(seed));
+                } 
+                else if (Long.parseLong(seed) >= srcRange && Long.parseLong(seed) < srcRange + length) {
+                    seedLocation.put(seed, Long.toString(Long.parseLong(seed)-srcRange+destRange));
+                    System.out.println("in srcRange: "+seedLocation.get(seed));
+                } 
+                else if (seedLocation.get(seed).equals("")) {
                     seedLocation.put(seed, seed);
                     System.out.println(seedLocation.get(seed));
                 }
