@@ -38,7 +38,7 @@ public class App {
             }
             // the juicy, juicy numbers
             else if (!lines.get(i).chars().anyMatch(Character::isLetter) &&
-                      lines.get(i).chars().anyMatch(ch -> ch == ' ')) 
+                      lines.get(i).chars().anyMatch(Character::isDigit)) 
             {
                 long destRange = Long.parseLong(lines.get(i).split(" ")[0]), 
                       srcRange = Long.parseLong(lines.get(i).split(" ")[1]), 
