@@ -26,16 +26,33 @@ public class App {
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
-        List<Integer> toNextLoop = new ArrayList<>();
-        // parses the line with the seeds
-        if (lines.get(i).chars().anyMatch(Character::isLetter) && 
-            lines.get(i).chars().anyMatch(Character::isDigit)) 
-        {
-            seeds.addAll(Stream.of(lines.get(i).split(":")[1].split(" "))
-                                .filter(str -> !str.isEmpty())
-                                .collect(Collectors.toList()));
-        }
 
+        List<String> tempLines = new ArrayList<>();
+        for (String line : lines) {
+            // parses the line with the seeds
+            if (lines.get(i).chars().anyMatch(Character::isLetter) && 
+                lines.get(i).chars().anyMatch(Character::isDigit)) 
+            {
+                seeds.addAll(Stream.of(lines.get(i).split(":")[1].split(" "))
+                                    .filter(str -> !str.isEmpty())
+                                    .collect(Collectors.toList()));
+            }
+            if (lines.get(i).chars().anyMatch(Character::isLetter) && 
+               !lines.get(i).chars().anyMatch(Character::isDigit)) 
+            {
+                tempLines = new ArrayList<>();
+            }
+            if (line.length() == 0) {
+                parser(tempLines);
+            }
+            if (!lines.get(i).chars().anyMatch(Character::isLetter) && 
+                 lines.get(i).chars().anyMatch(Character::isDigit)) 
+            {
+                tempLines.add(line);
+            }
+
+        }
+        
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
         System.out.println("Part 1: "/*+part1*/);
         System.out.println("Part 2: " );
@@ -54,19 +71,6 @@ public class App {
                         length = Long.parseLong(lines.get(i).split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
             } 
-            else if (line.length() == 0) {
-                // flush the Map and 
-            }
-
-            for (int seed : seeds) {
-            
-            }
-
-
-
-            if (seed > d) {
-
-            }
         }
     }
 }
@@ -82,7 +86,7 @@ public class App {
 // parser(List lines)
     // for seed in seed.keySet()
         // for line in lines
-            // if seed > destNr && seed < destNr + length
+            // if seed >= destNr && seed < destNr + length
                 //seeds.seed = seed-dstNr+srcNr
             // else it's unmapped and keeps its value
 
