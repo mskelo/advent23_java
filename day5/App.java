@@ -70,12 +70,14 @@ public class App {
                      length    = Long.parseLong(lines.get(i).split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
                 // This needs to be fixed
-                if (Long.parseLong(seed) >= destRange && Long.parseLong(seed) < destRange + length) {
-                    seedLocation.put(seed, Long.toString(Long.parseLong(seed)-destRange+srcRange));
+                if (Long.parseLong(seedLocation.get(seed)) >= destRange && Long.parseLong(seedLocation.get(seed)) < destRange + length) {
+                    String newValue = Long.toString(Long.parseLong(seedLocation.get(seed))-destRange+srcRange);
+                    seedLocation.put(seed, newValue);
                     System.out.println("in destRange: "+seedLocation.get(seed));
                 } 
-                else if (Long.parseLong(seed) >= srcRange && Long.parseLong(seed) < srcRange + length) {
-                    seedLocation.put(seed, Long.toString(Long.parseLong(seed)-srcRange+destRange));
+                else if (Long.parseLong(seedLocation.get(seed)) >= srcRange && Long.parseLong(seedLocation.get(seed)) < srcRange + length) {
+                    String newValue = Long.toString(Long.parseLong(seedLocation.get(seed))-srcRange+destRange);
+                    seedLocation.put(seed, newValue);
                     System.out.println("in srcRange: "+seedLocation.get(seed));
                 } 
                 else if (seedLocation.get(seed).equals("")) {
