@@ -18,61 +18,70 @@ import java.util.Collections;
 import java.util.stream.*;
 
 public class App {
+    static List<String> lines = new ArrayList<>();         
+    static List<String> seeds = new ArrayList<>();
+    static Map<String, String> seedLocation = new HashMap<>(); // seed: int, soil: int
     public static void main(String[] args) {
-        List<String> lines = new ArrayList<>();         
-        List<String> seeds = new ArrayList<>();
-        Map<Integer, Integer> seedLocation = new HashMap<>(); // seed: int, soil: int
-
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
 
         List<String> tempLines = new ArrayList<>();
-        for (String line : lines) {
+        for (int i = 0; i < lines.size(); i++) {
             // parses the line with the seeds
             if (lines.get(i).chars().anyMatch(Character::isLetter) && 
                 lines.get(i).chars().anyMatch(Character::isDigit)) 
             {
-                seeds.addAll(Stream.of(lines.get(i).split(":")[1].split(" "))
-                                    .filter(str -> !str.isEmpty())
-                                    .collect(Collectors.toList()));
+                Stream.of(lines.get(i).split(":")[1].split(" "))
+                        .filter(str -> !str.isEmpty())
+                        .forEach(seed -> seedLocation.put(seed, ""));
+                
             }
+
             if (lines.get(i).chars().anyMatch(Character::isLetter) && 
                !lines.get(i).chars().anyMatch(Character::isDigit)) 
             {
                 tempLines = new ArrayList<>();
             }
-            if (line.length() == 0) {
+
+            if (lines.get(i).length() == 0) {
                 parser(tempLines);
             }
+
             if (!lines.get(i).chars().anyMatch(Character::isLetter) && 
                  lines.get(i).chars().anyMatch(Character::isDigit)) 
             {
-                tempLines.add(line);
+                tempLines.add(lines.get(i));
             }
 
         }
         
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
-        System.out.println("Part 1: "/*+part1*/);
+        System.out.println("Part 1: " + Collections.min(seedLocation.values()));
         System.out.println("Part 2: " );
     }
 
-    public int parser(int seed) {
-        for (int i = 0; i < lines.size(); i++) {
-            List<Integer> temp = new ArrayList<>();
-
-            // the juicy, juicy numbers
-            if (!lines.get(i).chars().anyMatch(Character::isLetter) &&
-                      lines.get(i).chars().anyMatch(Character::isDigit)) 
-            {
-                long destRange = Long.parseLong(lines.get(i).split(" ")[0]), 
-                      srcRange = Long.parseLong(lines.get(i).split(" ")[1]), 
-                        length = Long.parseLong(lines.get(i).split(" ")[2]);
+    public static void parser(List<String> lines) {
+        System.out.println();
+        for (String seed : seedLocation.keySet()) {
+            for (int i = 0; i < lines.size(); i++) {
+                System.out.println(seed);
+                long destRange = Long.parseLong(lines.get(i).split(" ")[0]),
+                     srcRange  = Long.parseLong(lines.get(i).split(" ")[1]),
+                     length    = Long.parseLong(lines.get(i).split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
-            } 
+                // This needs to be fixed
+                if (Long.parseLong(seed) >= destRange && Long.parseLong(seed) < destRange + length) {
+                    seedLocation.replace(seed, Long.toString(Long.parseLong(seed)-destRange+srcRange));
+                } else if (seedLocation.get(seed).equals("")) {
+                    seedLocation.put(seed, seed);
+                    System.out.println(seedLocation.get(seed));
+                }
+            }
         }
     }
+
+
 }
 
 
