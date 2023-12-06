@@ -27,34 +27,30 @@ public class App {
 
         List<String> tempLines = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
-            // parses the line with the seeds
-            if (lines.get(i).chars().anyMatch(Character::isLetter) && 
-                lines.get(i).chars().anyMatch(Character::isDigit)) 
-            {
-                Stream.of(lines.get(i).split(":")[1].split(" "))
-                        .filter(str -> !str.isEmpty())
-                        .forEach(seed -> seedLocation.put(seed, ""));
-                
-            }
+            boolean isSeedLine   =  lines.get(i).chars().anyMatch(Character::isLetter) && 
+                                    lines.get(i).chars().anyMatch(Character::isDigit);
+            boolean isMapName    =  lines.get(i).chars().anyMatch(Character::isLetter) && 
+                                   !lines.get(i).chars().anyMatch(Character::isDigit);
+            boolean juicyNumbers = !lines.get(i).chars().anyMatch(Character::isLetter) && 
+                                    lines.get(i).chars().anyMatch(Character::isDigit);
+            boolean isEmpty      =  lines.get(i).length() == 0;
 
-            if (lines.get(i).chars().anyMatch(Character::isLetter) && 
-               !lines.get(i).chars().anyMatch(Character::isDigit)) 
-            {
+            if (isSeedLine) {
+                Stream.of(lines.get(i).split(":")[1].split(" "))
+                      .filter(str -> !str.isEmpty())
+                      .forEach(seed -> seedLocation.put(seed, ""));
+            }
+            else if (isMapName) {
                 tempLines = new ArrayList<>();
             }
-
-            if (lines.get(i).length() == 0) {
+            else if (isEmpty) {
                 parser(tempLines);
             }
 
-            if (!lines.get(i).chars().anyMatch(Character::isLetter) && 
-                 lines.get(i).chars().anyMatch(Character::isDigit)) 
-            {
+            else if (juicyNumbers) {
                 tempLines.add(lines.get(i));
             }
-
         }
-        
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
         System.out.println("Part 1: " + Collections.min(seedLocation.values()));
         System.out.println("Part 2: " );
@@ -69,17 +65,22 @@ public class App {
                      srcRange  = Long.parseLong(lines.get(i).split(" ")[1]),
                      length    = Long.parseLong(lines.get(i).split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
+                
+                boolean seedIsUnmapped  = seedLocation.get(seed).equals("");
+                boolean seedInDestRange = Long.parseLong(seedLocation.get(seed)) >= destRange && Long.parseLong(seedLocation.get(seed)) < destRange + length;
+                boolean seedInSrcRange  = Long.parseLong(seedLocation.get(seed)) >= srcRange && Long.parseLong(seedLocation.get(seed)) < srcRange + length;
+                
                 // This needs to be fixed
-                if (seedLocation.get(seed).equals("")) {
+                if (seedIsUnmapped) {
                     seedLocation.put(seed, seed);
                     System.out.println(seedLocation.get(seed));
                 }
-                else if (Long.parseLong(seedLocation.get(seed)) >= destRange && Long.parseLong(seedLocation.get(seed)) < destRange + length) {
+                else if (seedInDestRange) {
                     String newValue = Long.toString(Long.parseLong(seedLocation.get(seed))-destRange+srcRange);
                     seedLocation.put(seed, newValue);
                     System.out.println("in destRange: "+seedLocation.get(seed));
                 } 
-                else if (Long.parseLong(seedLocation.get(seed)) >= srcRange && Long.parseLong(seedLocation.get(seed)) < srcRange + length) {
+                else if (seedInSrcRange) {
                     String newValue = Long.toString(Long.parseLong(seedLocation.get(seed))-srcRange+destRange);
                     seedLocation.put(seed, newValue);
                     System.out.println("in srcRange: "+seedLocation.get(seed));
