@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -22,69 +23,70 @@ public class App {
     static Map<String, String> seedLocation = new HashMap<>();
     public static void main(String[] args) {
         // I/O
-        try   { lines = Files.readAllLines(Paths.get("./calibration")); } 
+        try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
 
         List<String> tempLines = new ArrayList<>();
-        for (int i = 0; i < lines.size()+1; i++) {
-            System.out.println(i);
-            if (i == lines.size() || lines.get(i).isEmpty()) {
+        for (String line : lines) {
+            if (line.isEmpty()) {
+                System.out.println("Empty: "+line.length());
+            }
+            if (line.isEmpty() && tempLines.size() > 0) {
                 parser(tempLines);
             }
-            else {
-                boolean isSeedLine   =  lines.get(i).chars().anyMatch(Character::isLetter) && 
-                                        lines.get(i).chars().anyMatch(Character::isDigit);
-                boolean isMapName    =  lines.get(i).chars().anyMatch(Character::isLetter) && 
-                                       !lines.get(i).chars().anyMatch(Character::isDigit);
-                boolean juicyNumbers = !lines.get(i).chars().anyMatch(Character::isLetter) && 
-                                        lines.get(i).chars().anyMatch(Character::isDigit);
+            else if (!line.isEmpty()) {
+                boolean isSeedLine   =  line.chars().anyMatch(Character::isLetter) && 
+                                        line.chars().anyMatch(Character::isDigit);
+                boolean isMapName    =  line.chars().anyMatch(Character::isLetter) && 
+                                       !line.chars().anyMatch(Character::isDigit);
+                boolean juicyNumbers = !line.chars().anyMatch(Character::isLetter) && 
+                                        line.chars().anyMatch(Character::isDigit);
                 if (isMapName) {
                     tempLines = new ArrayList<>();
-                    System.out.println("Map name: "+ lines.get(i));
+                    System.out.println("Map name: "+ line);
                 }
                 else if (isSeedLine) {
-                    Stream.of(lines.get(i).split(":")[1].split(" "))
+                    Stream.of(line.split(":")[1].split(" "))
                         .filter(str -> !str.isEmpty())
-                        .forEach(seed -> seedLocation.put(seed, "-1"));
+                        .forEach(seed -> seedLocation.put(seed, seed));
                 }
 
                 else if (juicyNumbers) {
-                    tempLines.add(lines.get(i));
-                    System.out.println("line added "+ lines.get(i));
+                    tempLines.add(line);
+                    System.out.println("line added "+ line);
                 }
-            }    
-            if (i == lines.size()) {
-                parser(tempLines);
             }    
         }
         System.out.println("End: "+seedLocation);
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
-        System.out.println("Part 1: " + Collections.min(seedLocation.values()));
+        System.out.println("Part 1: " + seedLocation.values().stream().map(Long::parseLong).min(Comparator.naturalOrder()).get());
+        // System.out.println("Part 1: " + Collections.min(seedLocation.values()));
+        // This actually made me /facedesk. min(String) =/= min(Long)
         System.out.println("Part 2: " );
     }
 
     public static void parser(List<String> lines) {
         System.out.println("top of parser(): "+seedLocation);
         for (String seed : seedLocation.keySet()) {
-            for (int i = 0; i < lines.size(); i++) {
+            for (String line : lines) {
                 System.out.println("\nSeed: "+seed);
-                System.out.println(seedLocation.values());
-                long destRange = Long.parseLong(lines.get(i).split(" ")[0]),
-                     srcRange  = Long.parseLong(lines.get(i).split(" ")[1]),
-                     length    = Long.parseLong(lines.get(i).split(" ")[2]);
+                long destRange = Long.parseLong(line.split(" ")[0]),
+                        srcRange  = Long.parseLong(line.split(" ")[1]),
+                        length    = Long.parseLong(line.split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
-                Long val = Long.parseLong(seedLocation.get(seed));
-                boolean seedIsUnmapped  = seedLocation.get(seed).equals("-1");
-                if (seedIsUnmapped) {
-                    seedLocation.put(seed, seed);
-                    System.out.println(seedLocation.get(seed));
-                }
-                else if (srcRange <= val && val < srcRange + length) {
-                    Long newValue = (val - srcRange) + destRange;
+                Long seedVal = Long.parseLong(seedLocation.get(seed));
+
+                if (seedVal >= srcRange && seedVal < srcRange + length) {
+                    Long newValue = (seedVal - srcRange) + destRange;
+                    Long oldValue = Long.parseLong(seedLocation.get(seed));
                     seedLocation.put(seed, newValue.toString());
-                    System.out.println("seed: "+seed+"newValue: "+newValue);
+                    System.out.println("seed: "+seed+", oldValue: "+oldValue+", newValue: "+newValue);
+                    break; // Holy shit. This line ended two days of suffering.
+                    // You don't need to keep looking once you've matched your seed's number
+                    // Don't forget about context and what the values you work with represent
                 }
             }
         }
     }
 }
+    
