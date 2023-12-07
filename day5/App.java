@@ -70,9 +70,9 @@ public class App {
         for (String seed : seedLocation.keySet()) {
             for (String line : lines) {
                 System.out.println("\nSeed: "+seed);
-                long destRange = Long.parseLong(line.split(" ")[0]),
-                        srcRange  = Long.parseLong(line.split(" ")[1]),
-                        length    = Long.parseLong(line.split(" ")[2]);
+                Long destRange = Long.parseLong(line.split(" ")[0]),
+                     srcRange  = Long.parseLong(line.split(" ")[1]),
+                     length    = Long.parseLong(line.split(" ")[2]);
                 System.out.println(destRange +" "+srcRange +" "+length);
                 Long seedVal = Long.parseLong(seedLocation.get(seed));
 
