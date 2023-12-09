@@ -41,11 +41,11 @@ public class App {
         }
         
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
-        System.out.println("Part 1: " + part1(instructions, lineValues));
+        System.out.println("Part 1: " + part1());
         System.out.println("Part 2: " );
     }
 
-    public static int part1(List<Character> instructions, Map<String, Tuple<String>> lineValues) {
+    public static int part1() {
         final String firstLabel = "AAA",
                      finalLabel = "ZZZ";
         int steps = 0;
