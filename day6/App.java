@@ -1,6 +1,6 @@
 /**
  * Advent of Code 2023
- * Day 6, Part 1
+ * Day 6
  */
 
 import java.io.IOException;
