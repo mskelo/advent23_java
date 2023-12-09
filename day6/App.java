@@ -8,8 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
@@ -20,8 +18,8 @@ public class App {
 
         List<Integer> times = new ArrayList<>();
         List<Integer> distances = new ArrayList<>();
-        long part2time = 0;
-        long part2distance = 0;
+        long time = 0;
+        long distance = 0;
 
         for(int i = 0; i < lines.size(); i++) {
             String temp = "";
@@ -32,26 +30,28 @@ public class App {
                     temp = temp.concat(substr);
                 }
             }
-            if (i==0) { part2time = Long.parseLong(temp); } 
-            else      { part2distance = Long.parseLong(temp); }
+            if (i==0) { time = Long.parseLong(temp); } 
+            else      { distance = Long.parseLong(temp); }
         }
-                
+
         System.out.println("Advent of Code 2023 // Day 6 // Matej Skelo");
         System.out.println("Part 1: " + part1(times, distances));
-        System.out.println("Part 2: " );
+        System.out.println("Part 2: " + part2(time, distance));
     }
 
     public static int part1(List<Integer> times, List<Integer> distances) {
         List<Integer> gameCounters = new ArrayList<>();
         for (int i = 0; i < times.size(); i++) {
-            int gameCounter = 0;
-            for (int j = 0; j <= times.get(i); j++) {
-                if (j*(times.get(i)-j) > distances.get(i)) {
-                    gameCounter++;
-                }
-            }
-            gameCounters.add(gameCounter);
+            gameCounters.add((int) part2(times.get(i), distances.get(i)));
         }
         return gameCounters.stream().reduce(1, (a,b) -> a*b);
+    }
+
+    public static long part2(long time, long distance) {
+        long gameCounter = 0;
+        for (int i = 0; i <= time; i++) {
+            gameCounter += (i*(time-i) > distance) ? 1 : 0;
+        }
+        return gameCounter;
     }
 } 
