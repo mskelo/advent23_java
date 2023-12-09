@@ -20,26 +20,22 @@ public class App {
 
         List<Integer> times = new ArrayList<>();
         List<Integer> distances = new ArrayList<>();
-        int part2time = 0;
-        int part2distance = 0;
+        long part2time = 0;
+        long part2distance = 0;
 
         for(int i = 0; i < lines.size(); i++) {
             String temp = "";
             for (String substr : lines.get(i).split(":")[1].split(" ")) {
                 if (!substr.isBlank()) {
-                    if (i == 0) { 
-                        times.add(Integer.parseInt(substr)); 
-                        temp += substr;
-                    }
-                    else { 
-                        distances.add(Integer.parseInt(substr)); 
-                    }
+                    if (i == 0) { times.add(Integer.parseInt(substr)); }
+                    else        { distances.add(Integer.parseInt(substr)); }
+                    temp = temp.concat(substr);
                 }
             }
-            if (i==0) { part2time = Integer.parseInt(temp); } 
-            else      { part2distance = Integer.parseInt(temp); }
+            if (i==0) { part2time = Long.parseLong(temp); } 
+            else      { part2distance = Long.parseLong(temp); }
         }
-        System.out.println(part2time +" "+ part2distance);
+        System.out.println(part2time + " " + part2distance);
         
         System.out.println("Advent of Code 2023 // Day 6 // Matej Skelo");
         System.out.println("Part 1: " + part1(times, distances));
