@@ -40,11 +40,11 @@ public class App {
     }
 
     public static int part1(List<Integer> times, List<Integer> distances) {
-        List<Integer> gameCounters = new ArrayList<>();
+        int gameCounter = 1;
         for (int i = 0; i < times.size(); i++) {
-            gameCounters.add((int) part2(times.get(i), distances.get(i)));
+            gameCounter*= (int) part2(times.get(i), distances.get(i));
         }
-        return gameCounters.stream().reduce(1, (a,b) -> a*b);
+        return gameCounter;
     }
 
     public static long part2(long time, long distance) {
