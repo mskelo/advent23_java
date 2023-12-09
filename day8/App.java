@@ -38,7 +38,7 @@ public class App {
                 lineValues.put(label, new Tuple<>(firstValue, secondValue));
             }
         }  
-        System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
+        System.out.println("Advent of Code 2023 // Day 8 // Matej Skelo");
         System.out.println("Part 1: " + part1());
         System.out.println("Part 2: " );
     }
