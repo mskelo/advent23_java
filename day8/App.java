@@ -57,7 +57,7 @@ public class App {
             }
             else {
                 steps++;
-                boolean instructionL = (iter.next().equals('L')) ? true : false;
+                boolean instructionL = iter.next().equals('L');
                 currentLabel = instructionL ? lineValues.get(currentLabel).getFirst() : 
                                               lineValues.get(currentLabel).getSecond();
                 if (currentLabel.equals(finalLabel)) break;
