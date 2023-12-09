@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class App {
+    private static List<Character> instructions = new ArrayList<>();
+    private static Map<String, Tuple<String>> lineValues = new LinkedHashMap<>();
     public static void main(String[] args) {
-        List<String>    lines        = new ArrayList<>();
-        List<Character> instructions = new ArrayList<>();
-        Map<String, Tuple<String>> lineValues = new LinkedHashMap<>();
+        List<String> lines = new ArrayList<>();
 
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
