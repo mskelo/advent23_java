@@ -35,8 +35,7 @@ public class App {
             if (i==0) { part2time = Long.parseLong(temp); } 
             else      { part2distance = Long.parseLong(temp); }
         }
-        System.out.println(part2time + " " + part2distance);
-        
+                
         System.out.println("Advent of Code 2023 // Day 6 // Matej Skelo");
         System.out.println("Part 1: " + part1(times, distances));
         System.out.println("Part 2: " );
