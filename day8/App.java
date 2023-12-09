@@ -18,9 +18,8 @@ public class App {
     private static List<Character> instructions = new ArrayList<>();
     private static Map<String, Tuple<String>> lineValues = new LinkedHashMap<>();
     public static void main(String[] args) {
-        List<String> lines = new ArrayList<>();
-
         // I/O
+        List<String> lines = new ArrayList<>();
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
 
@@ -38,8 +37,7 @@ public class App {
                                          .split("\\)")[0];
                 lineValues.put(label, new Tuple<>(firstValue, secondValue));
             }
-        }
-        
+        }  
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
         System.out.println("Part 1: " + part1());
         System.out.println("Part 2: " );
