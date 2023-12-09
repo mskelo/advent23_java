@@ -19,9 +19,6 @@ public class App {
         List<String>    lines        = new ArrayList<>();
         List<Character> instructions = new ArrayList<>();
         Map<String, Tuple<String>> lineValues = new LinkedHashMap<>();
-        String firstLabel = "AAA",
-               finalLabel = "ZZZ";
-        int steps = 0;
 
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
@@ -42,6 +39,15 @@ public class App {
                 lineValues.put(label, new Tuple<>(firstValue, secondValue));
             }
         }
+        
+        System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
+        System.out.println("Part 1: " + part1(instructions, lineValues));
+        System.out.println("Part 2: " );
+    }
+    public static int part1(List<> instructions, Map<> lineValues) {
+        final String firstLabel = "AAA",
+                     finalLabel = "ZZZ";
+        int steps = 0;
         String currentLabel = firstLabel;
         while (!currentLabel.equals(finalLabel)) {
             Iterator iter = instructions.iterator();
@@ -58,9 +64,6 @@ public class App {
                 }
             }
         }
-        System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
-        System.out.println("Part 1: " + steps);
-        System.out.println("Part 2: " );
     }
 }
 
