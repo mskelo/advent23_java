@@ -44,24 +44,23 @@ public class App {
         System.out.println("Part 1: " + part1(instructions, lineValues));
         System.out.println("Part 2: " );
     }
+
     public static int part1(List<Character> instructions, Map<String, Tuple<String>> lineValues) {
         final String firstLabel = "AAA",
                      finalLabel = "ZZZ";
         int steps = 0;
         String currentLabel = firstLabel;
-        while (!currentLabel.equals(finalLabel)) {
-            Iterator iter = instructions.iterator();
-            while(true) { // Infinite loop over the instructions
-                if (!iter.hasNext()) {
-                    iter = instructions.iterator();
-                }
-                else {
-                    boolean instructionL = (iter.next().equals('L')) ? true : false;
-                    steps++;
-                    currentLabel = instructionL ? lineValues.get(currentLabel).getFirst() : 
-                                                  lineValues.get(currentLabel).getSecond();
-                    if (currentLabel.equals(finalLabel)) { break; }
-                }
+        Iterator iter = instructions.iterator();
+        while(true) { // Infinite loop over the instructions
+            if (!iter.hasNext()) {
+                iter = instructions.iterator();
+            }
+            else {
+                steps++;
+                boolean instructionL = (iter.next().equals('L')) ? true : false;
+                currentLabel = instructionL ? lineValues.get(currentLabel).getFirst() : 
+                                              lineValues.get(currentLabel).getSecond();
+                if (currentLabel.equals(finalLabel)) break;
             }
         }
         return steps;
