@@ -33,24 +33,18 @@ public class App {
             if (i==0) { time = Long.parseLong(temp); } 
             else      { distance = Long.parseLong(temp); }
         }
+        
         int part1 = 1;
-        for(int p1time : times) {
-            part1 *= (int) part2(times.get(i), distances.get(i));
+        for(int i = 0; i < times.size(); i++) {
+            part1 *= (int) foo(times.get(i), distances.get(i));
         }
+
         System.out.println("Advent of Code 2023 // Day 6 // Matej Skelo");
         System.out.println("Part 1: " + part1);
-        System.out.println("Part 2: " + part2(time, distance));
+        System.out.println("Part 2: " + foo(time, distance));
     }
 
-    // public static int part1(List<Integer> times, List<Integer> distances) {
-    //     int gameCounter = 1;
-    //     for (int i = 0; i < times.size(); i++) {
-    //         gameCounter*= (int) part2(times.get(i), distances.get(i));
-    //     }
-    //     return gameCounter;
-    // }
-
-    public static long part2(long time, long distance) {
+    public static long foo(long time, long distance) {
         long gameCounter = 0;
         for (int i = 0; i <= time; i++) {
             gameCounter += (i*(time-i) > distance) ? 1 : 0;
