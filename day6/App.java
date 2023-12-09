@@ -18,7 +18,7 @@ public class App {
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
         
-        System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
+        System.out.println("Advent of Code 2023 // Day 6 // Matej Skelo");
         System.out.println("Part 1: " + part1(lines));
         System.out.println("Part 2: " );
     }
