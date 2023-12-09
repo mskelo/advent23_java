@@ -44,7 +44,7 @@ public class App {
         System.out.println("Part 1: " + part1(instructions, lineValues));
         System.out.println("Part 2: " );
     }
-    public static int part1(List<> instructions, Map<> lineValues) {
+    public static int part1(List<Character> instructions, Map<String, Tuple<String>> lineValues) {
         final String firstLabel = "AAA",
                      finalLabel = "ZZZ";
         int steps = 0;
@@ -64,6 +64,7 @@ public class App {
                 }
             }
         }
+        return steps;
     }
 }
 
