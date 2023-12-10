@@ -1,6 +1,6 @@
 /**
  * Advent of Code 2023
- * Day 9, Part 1
+ * Day 9
  */
 
 import java.io.IOException;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,20 +21,22 @@ public class App {
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
         
-        int sum = 0;
+        int part1 = 0,
+            part2 = 0;
         for (String line : lines) {
             if (!line.isBlank()) {
                 List<Integer> numbers = Arrays.stream(line.split(" "))
                                               .mapToInt(i -> Integer.parseInt(i))
                                               .boxed()
                                               .collect(Collectors.toList());
-                sum += rec(numbers);
+                part1 += rec(numbers);
+                Collections.reverse(numbers); // reverse the List for part 2
+                part2 += rec(numbers);
             }
         }
-
         System.out.println("Advent of Code 2023 // Day 9 // Matej Skelo");
-        System.out.println("Part 1: " + sum);
-        System.out.println("Part 2: " );
+        System.out.println("Part 1: " + part1);
+        System.out.println("Part 2: " + part2);
     }
 
     public static Integer rec(List<Integer> numberRow) {
