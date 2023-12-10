@@ -29,7 +29,7 @@ public class App {
         List<String> tempLines = new ArrayList<>();
         for (String line : lines) {
             if (line.isEmpty() && tempLines.size() > 0) {
-                parser(tempLines);
+                parser1(tempLines);
             }
             else if (!line.isEmpty()) {
                 boolean isSeedLine   =  line.chars().anyMatch(Character::isLetter) && 
@@ -62,13 +62,28 @@ public class App {
                                  .map(Long::parseLong)
                                  .min(Comparator.naturalOrder())
                                  .get();
-                                 
+
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
         System.out.println("Part 1: " + part1);
         System.out.println("Part 2: " );
     }
 
-    public static void parser(List<String> lines) {
+    public static void parser1(List<String> lines) {
+        for (String seed : seedLocation.keySet()) {
+            for (String line : lines) {
+                Long destRange = Long.parseLong(line.split(" ")[0]),
+                     srcRange  = Long.parseLong(line.split(" ")[1]),
+                     length    = Long.parseLong(line.split(" ")[2]);
+                Long seedVal = Long.parseLong(seedLocation.get(seed));
+                if (seedVal >= srcRange && seedVal <= srcRange + length) {
+                    Long newValue = (seedVal - srcRange) + destRange;
+                    seedLocation.put(seed, newValue.toString());
+                    break;
+                }
+            }
+        }
+    }
+    public static void parser2(List<String> lines) {
         for (String seed : seedLocation.keySet()) {
             for (String line : lines) {
                 Long destRange = Long.parseLong(line.split(" ")[0]),
@@ -85,3 +100,13 @@ public class App {
     }
 }
     
+// Part 2 algorithm:
+// long lowestLocationNumber = Long.MAX_VALUE;
+// for (Map.Entry<String, String> e : seedRanges.entrySet()) {
+//     if (currentLocationNumber >= seedRange.entry().key()  && 
+//        currentLocationNumber <= seedRange.entry().value() && 
+//        currentLocationNumber < lowestLocationNumber)
+//     {
+//        lowestLocationNumber = currentLocationNumber;
+//     }
+// }
