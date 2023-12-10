@@ -19,14 +19,14 @@ public class App {
         List<String> lines = new ArrayList<>();
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
+        
         int sum = 0;
-        // Parser
         for (String line : lines) {
             if (!line.isBlank()) {
                 List<Integer> numbers = Arrays.stream(line.split(" "))
-                                           .mapToInt(i -> Integer.parseInt(i))
-                                           .boxed()
-                                           .collect(Collectors.toList());
+                                              .mapToInt(i -> Integer.parseInt(i))
+                                              .boxed()
+                                              .collect(Collectors.toList());
                 sum += rec(numbers);
             }
         }
