@@ -1,6 +1,6 @@
 /**
  * Advent of Code 2023
- * Day 10, Part 1
+ * Day 9, Part 1
  */
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class App {
         for (String line : lines) {
             
         }  
-        System.out.println("Advent of Code 2023 // Day 10 // Matej Skelo");
+        System.out.println("Advent of Code 2023 // Day 9 // Matej Skelo");
         System.out.println("Part 1: " );
         System.out.println("Part 2: " );
     }
