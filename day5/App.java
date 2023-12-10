@@ -1,6 +1,7 @@
 /**
  * Advent of Code 2023
- * Day 5, Part 1
+ * Day 5
+ * Note: this only works if the input file has TWO \n's at the end
  */
 
 import java.io.IOException;
@@ -8,15 +9,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Arrays;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.*;
 
 public class App {
     static List<String> lines = new ArrayList<>();         
-    static Map<String, String> seedLocation = new HashMap<>();
+    static Map<String, String> seedLocation = new LinkedHashMap<>();
+    static Map<String, String> seedRange = new LinkedHashMap<>();
     public static void main(String[] args) {
         // I/O
         try   { lines = Files.readAllLines(Paths.get("./input")); } 
@@ -37,9 +41,20 @@ public class App {
                 
                 if      (isMapName)    { tempLines = new ArrayList<>(); }
                 else if (juicyNumbers) { tempLines.add(line); }
-                else if (isSeedLine)   { Stream.of(line.split(":")[1].split(" "))
-                                               .filter(str -> !str.isEmpty())
-                                               .forEach(seed -> seedLocation.put(seed, seed)); }
+                else if (isSeedLine)   { 
+                    List<String> seedLine = Arrays.asList(line.split(": ")[1].split(" "));
+                    // Fill seedLocation for part 1
+                    seedLine.stream()
+                            .filter(str -> !str.isEmpty())
+                            .forEach(seed -> seedLocation.put(seed, seed)); 
+                    // Fill seedRange for part 2 with seed and range
+                    String temp = "";
+                    for (int i = 0; i < seedLine.size(); i++) {
+                        if (i%2 == 0) temp = seedLine.get(i);
+                        else          seedRange.put(temp, seedLine.get(i));
+                    }
+                    // System.out.println(seedRange);
+                }
             }    
         }
         long part1 = seedLocation.values().stream()
@@ -59,12 +74,9 @@ public class App {
                      length    = Long.parseLong(line.split(" ")[2]);
                 Long seedVal = Long.parseLong(seedLocation.get(seed));
                 if (seedVal >= srcRange && seedVal <= srcRange + length) {
-                                        //          ^     this ended up being the issue all along lmao
                     Long newValue = (seedVal - srcRange) + destRange;
                     seedLocation.put(seed, newValue.toString());
-                    break; // Holy shit. This line ended two days of suffering.
-                    // You don't need to keep looking once you've matched your seed's number
-                    // Don't forget about context and what the values you work with represent
+                    break;
                 }
             }
         }
