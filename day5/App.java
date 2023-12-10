@@ -57,10 +57,12 @@ public class App {
                 }
             }    
         }
-        long part1 = seedLocation.values().stream()
-                                          .map(Long::parseLong)
-                                          .min(Comparator.naturalOrder())
-                                          .get();
+        long part1 = seedLocation.values()
+                                 .stream()
+                                 .map(Long::parseLong)
+                                 .min(Comparator.naturalOrder())
+                                 .get();
+                                 
         System.out.println("Advent of Code 2023 // Day 5 // Matej Skelo");
         System.out.println("Part 1: " + part1);
         System.out.println("Part 2: " );
