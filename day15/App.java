@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 public class App {
     static final int MAX_BOXES = 256;
 
-    public static int HASH(String str) {
+    public static int hash(String str) {
         return str.chars().reduce(0, (acc, element) -> ((acc + element) * 17) % 256);
     }
 
@@ -34,7 +34,7 @@ public class App {
 
         for (String lens : line) {
             String label = lens.split("[-=]")[0];
-            Map<String, Integer> box = boxes.get(HASH(label));
+            Map<String, Integer> box = boxes.get(hash(label));
 
             if      (lens.contains("-"))  box.remove(label);
             else if (lens.contains("=")) 
@@ -56,7 +56,7 @@ public class App {
         // ez
         int part1 = Arrays.asList(line.split(","))
                           .stream()
-                          .mapToInt(str -> HASH(str))
+                          .mapToInt(str -> hash(str))
                           .sum();
         
         
