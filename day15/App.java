@@ -52,15 +52,16 @@ public class App {
         String line = "";
         try   { line = Files.readAllLines(Paths.get("./input")).get(0); } 
         catch ( IOException e ) { e.printStackTrace(); }
+        String[] lenses = line.split(",");
 
         // ez
-        int part1 = Arrays.asList(line.split(","))
+        int part1 = Arrays.asList(lenses)
                           .stream()
                           .mapToInt(str -> hash(str))
                           .sum();
         
         
-        Map<Integer, Map<String, Integer>> boxes = arrangeLenses(line.split(","));
+        Map<Integer, Map<String, Integer>> boxes = arrangeLenses(lenses);
 
         int part2 = 0;
         for (int i = 1; i <= MAX_BOXES; i++) {
