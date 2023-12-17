@@ -33,11 +33,11 @@ public class App {
         for (List<String> paragraph : paragraphs) {
             // 100 * (rows above mirror)
             //     + (columns before mirror)
-            
             System.out.println(paragraph);
-            rowsBeforeMirror(paragraph);              // rows
             System.out.println(transpose(paragraph));
-            rowsBeforeMirror(transpose(paragraph));   // columns
+            int verticalMirror = findMirror(0, transpose(paragraph));
+            System.out.println(verticalMirror);
+            if (verticalMirror < 0) System.out.println(findMirror(0, paragraph));
             System.out.println();
         }
 
@@ -55,26 +55,20 @@ public class App {
         /* --> return */.collect(Collectors.toList());
     }
 
-    public static int rowsBeforeMirror(List<String> lines) {
-        List<Integer> indexes = new ArrayList<>();
-
-        for (int next = 1; next < lines.size(); next++) {
-            int index = next - 1;
-            String line = lines.get(index);
-            if (line.equals(lines.get(next))) {
-                if (line.size()%2==0 && ) {
-                    indexes.add(index);
-                }
-            }
-        }
-
-        System.out.println("Sequential equal lines found at indexes: " + indexes);
+    public static int findMirror(int index, List<String> lines) {
+        if (index == lines.size()-1) return -1;
         
-
-        return 0;
+        int indexUp = index, 
+            indexDn = index;
+        
+        if (lines.get(index).equals(lines.get(index+1))) {
+            while (indexDn >= 0 && indexUp < lines.size()) {
+                indexUp++;
+                if (!lines.get(index).equals(lines.get(indexUp))) break;
+                indexDn--;
+            }
+            return index;
+        }
+        else return findMirror(++index, lines);
     }
 }
-
-// [0,1,2,3|4,5,6]   size=7 index=3 size/2=(int)3
-// [0,1,2,3|4,5,6,7] size=8 index=3 size/2=(int)4
-
