@@ -37,7 +37,7 @@ public class App {
             System.out.println(transpose(paragraph));
             int verticalMirror = findMirror(0, transpose(paragraph));
             System.out.println(verticalMirror);
-            if (verticalMirror < 0) System.out.println(findMirror(0, paragraph));
+            System.out.println(findMirror(0, paragraph));
             System.out.println();
         }
 
@@ -62,12 +62,14 @@ public class App {
             indexDn = index;
         
         if (lines.get(index).equals(lines.get(index+1))) {
+            boolean isMirror = true;
             while (indexDn >= 0 && indexUp < lines.size()) {
                 indexUp++;
-                if (!lines.get(index).equals(lines.get(indexUp))) break;
+                if (!lines.get(indexDn).equals(lines.get(indexUp))) {isMirror = false; break;}
                 indexDn--;
+                return index;
             }
-            return index;
+            return isMirror ? index : -1;
         }
         else return findMirror(++index, lines);
     }
