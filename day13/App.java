@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.ArrayList;
 
-
 public class App {
     public static void main(String[] args) {
         List<String> lines = new ArrayList<>();
@@ -33,12 +32,11 @@ public class App {
         for (List<String> paragraph : paragraphs) {
             // 100 * (rows above mirror)
             //     + (columns before mirror)
-            System.out.println(paragraph);
-            System.out.println(transpose(paragraph));
+
             int verticalMirror = findMirror(0, transpose(paragraph));
-            System.out.println(verticalMirror);
-            System.out.println(findMirror(0, paragraph));
-            System.out.println();
+            int horizontalMirror = findMirror(0, paragraph);
+            if (verticalMirror != -1) System.out.println(verticalMirror);
+            else System.out.println(horizontalMirror);
         }
 
         System.out.println("Advent of Code 2023 // Day 13 // Matej Skelo");
@@ -57,17 +55,14 @@ public class App {
 
     public static int findMirror(int index, List<String> lines) {
         if (index == lines.size()-1) return -1;
-        
         int indexUp = index, 
             indexDn = index;
         
         if (lines.get(index).equals(lines.get(index+1))) {
             boolean isMirror = true;
-            while (indexDn >= 0 && indexUp < lines.size()) {
-                indexUp++;
+            while (indexDn >= 0 && ++indexUp < lines.size()) {
                 if (!lines.get(indexDn).equals(lines.get(indexUp))) {isMirror = false; break;}
                 indexDn--;
-                return index;
             }
             return isMirror ? index : -1;
         }
