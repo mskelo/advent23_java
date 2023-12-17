@@ -12,6 +12,8 @@ import java.util.stream.IntStream;
 import java.util.ArrayList;
 
 public class App {
+    // (1) Parses raw lines into easily traversable paragraphs
+    //     "yo dawg, i heard you liked Lists"
     public static List<List<String>> parseParagraphs(List<String> lines) {
         List<List<String>> paragraphs = new ArrayList<>();
         List<String> temp = new ArrayList<>();
@@ -25,8 +27,8 @@ public class App {
         return paragraphs;
     }
 
-    // Transposes a paragraph (matrix) by 90 degrees to find vertical mirrors
-    // Because it's easier to check horizontal lines for equality
+    // (2) Transposes a paragraph (matrix) by 90 degrees to find vertical mirrors
+    //     Because it's easier to check horizontal lines for equality
     public static List<String> transpose(List<String> lines) {
         return IntStream.range(0, lines.size())
                         .mapToObj(i -> lines.stream()
@@ -36,15 +38,13 @@ public class App {
         /* --> return */.collect(Collectors.toList());
     }
 
-    // Only finds mirrors in horizontal lines
-    // Transpose a matrix first to find vertical mirrors
-    // With recursion, 'cuz y nut. 
-    // Returns -1 if no mirrors are found. Else first index of repeating lines.
+    // (3)  Finds mirrors recursively. Only works with horizontal lines
+    //      Transpose a matrix first to find vertical mirrors 
+    //      Returns -1 if no mirrors are found. Else first index of repeating lines.
     public static int findMirror(int index, List<String> lines) {
         if (index == lines.size()-1) return -1;
         int indexUp = index, 
             indexDn = index;
-        
         if (lines.get(index).equals(lines.get(index+1))) {
             boolean isMirror = true;
             while (indexDn >= 0 && ++indexUp < lines.size()) {
@@ -62,6 +62,7 @@ public class App {
         try   { lines = Files.readAllLines(Paths.get("./calibration")); } 
         catch ( IOException e ) { e.printStackTrace(); }
         
+        // (1) Parse paragraphs
         List<List<String>> paragraphs = parseParagraphs(lines);
 
         for (List<String> paragraph : paragraphs) {
