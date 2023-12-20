@@ -52,12 +52,7 @@ public class App {
         if (lines.get(index).equals(lines.get(index+1))) {
             boolean isMirror = true;
             while (indexDn >= 0 && ++indexUp < lines.size()) {
-                if (!lines.get(indexDn).equals(lines.get(indexUp)) &&
-                    !lines.get(indexDn).equals(null)) 
-                {
-                    isMirror = false; 
-                    break;
-                }
+                if (!lines.get(indexDn).equals(lines.get(indexUp))) { isMirror = false; break; }
                 indexDn--;
             }
             return isMirror ? index : findMirror(++index, lines); // Here's the final return
@@ -76,18 +71,13 @@ public class App {
         long part1 = 0l;
 
         for (List<String> paragraph : paragraphs) {
-            // 100 * (rows above mirror)
-            //     + (columns before mirror)
-            System.out.println(paragraph);
-            int verticalMirror = findMirror(0, transpose(paragraph));
-            int horizontalMirror = findMirror(0, paragraph);
-            if (verticalMirror != -1) {
-                System.out.println("verticalMirror: "+verticalMirror);
-                part1 += verticalMirror+1;
+            int verticalMirrorIndex = findMirror(0, transpose(paragraph));
+            int horizontalMirrorIndex = findMirror(0, paragraph);
+            if (verticalMirrorIndex != -1) {
+                part1 += verticalMirrorIndex + 1;
             } 
             else {
-                System.out.println("horizontalMirror: "+horizontalMirror);
-                part1 += 100 * (horizontalMirror + 1);
+                part1 += 100 * (horizontalMirrorIndex + 1);
             }
         }
         System.out.println("Advent of Code 2023 // Day 13 // Matej Skelo");
