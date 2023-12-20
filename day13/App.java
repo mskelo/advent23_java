@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class App {
     // (1) Parses raw lines into easily traversable paragraphs
@@ -30,12 +32,16 @@ public class App {
     // (2) Transposes a paragraph (matrix) by 90 degrees to find vertical mirrors
     //     Because it's easier to check horizontal lines for equality
     public static List<String> transpose(List<String> lines) {
-        return IntStream.range(0, lines.size())
-                        .mapToObj(i -> lines.stream()
-                                            .map(row -> row.charAt(i))
-                                            .map(String::valueOf)
-                                            .collect(Collectors.joining()))
-        /* --> return */.collect(Collectors.toList());
+        String[] preResult = new String[lines.size()];
+        Arrays.fill(preResult, "");
+        List<String> result = new ArrayList<>(Arrays.asList(preResult));
+
+        for (String line : lines) {
+            for (int i = 0; i < line.length(); i++) {
+                result.add(i, result.get(i)+line.charAt(i));
+            }
+        }
+        return result;
     }
 
     // (3)  Finds mirrors recursively. Only works with horizontal lines
@@ -68,7 +74,7 @@ public class App {
         for (List<String> paragraph : paragraphs) {
             // 100 * (rows above mirror)
             //     + (columns before mirror)
-
+            System.out.println(paragraph);
             int verticalMirror = findMirror(0, transpose(paragraph));
             int horizontalMirror = findMirror(0, paragraph);
             if (verticalMirror != -1) System.out.println(verticalMirror);
@@ -79,3 +85,9 @@ public class App {
         System.out.println("Part 2: " );
     }
 }
+
+
+// for line in lines
+//     for chars in line
+//         chars[i] += result[i]
+// where result = List<String>    
