@@ -32,16 +32,14 @@ public class App {
     // (2) Transposes a paragraph (matrix) by 90 degrees to find vertical mirrors
     //     Because it's easier to check horizontal lines for equality
     public static List<String> transpose(List<String> lines) {
-        String[] preResult = new String[lines.size()];
+        String[] preResult = new String[lines.get(0).length()];
         Arrays.fill(preResult, "");
-        List<String> result = new ArrayList<>(Arrays.asList(preResult));
-
         for (String line : lines) {
             for (int i = 0; i < line.length(); i++) {
-                result.add(i, result.get(i)+line.charAt(i));
+                preResult[i] = preResult[i].concat(String.valueOf(line.charAt(i)));
             }
         }
-        return result;
+        return new ArrayList<>(Arrays.asList(preResult));
     }
 
     // (3)  Finds mirrors recursively. Only works with horizontal lines
@@ -57,19 +55,20 @@ public class App {
                 if (!lines.get(indexDn).equals(lines.get(indexUp))) {isMirror = false; break;}
                 indexDn--;
             }
-            return isMirror ? index : -1; // Here's the final return
+            return isMirror ? index : findMirror(++index, lines); // Here's the final return
         }
-        else return findMirror(++index, lines);
+        return findMirror(++index, lines);
     }
 
     public static void main(String[] args) {
         List<String> lines = new ArrayList<>();
         // I/O
-        try   { lines = Files.readAllLines(Paths.get("./calibration")); } 
+        try   { lines = Files.readAllLines(Paths.get("./input")); } 
         catch ( IOException e ) { e.printStackTrace(); }
         
         // (1) Parse paragraphs
         List<List<String>> paragraphs = parseParagraphs(lines);
+        long part1 = 0l;
 
         for (List<String> paragraph : paragraphs) {
             // 100 * (rows above mirror)
@@ -77,17 +76,17 @@ public class App {
             System.out.println(paragraph);
             int verticalMirror = findMirror(0, transpose(paragraph));
             int horizontalMirror = findMirror(0, paragraph);
-            if (verticalMirror != -1) System.out.println(verticalMirror);
-            else System.out.println(horizontalMirror);
+            if (verticalMirror != -1) {
+                System.out.println("verticalMirror: "+verticalMirror);
+                part1 += verticalMirror+1;
+            } 
+            else {
+                System.out.println("horizontalMirror: "+horizontalMirror);
+                part1 += 100 * (horizontalMirror + 1);
+            }
         }
         System.out.println("Advent of Code 2023 // Day 13 // Matej Skelo");
-        System.out.println("Part 1: " );
+        System.out.println("Part 1: " + part1);
         System.out.println("Part 2: " );
     }
 }
-
-
-// for line in lines
-//     for chars in line
-//         chars[i] += result[i]
-// where result = List<String>    
