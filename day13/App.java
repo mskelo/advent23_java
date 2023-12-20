@@ -52,7 +52,12 @@ public class App {
         if (lines.get(index).equals(lines.get(index+1))) {
             boolean isMirror = true;
             while (indexDn >= 0 && ++indexUp < lines.size()) {
-                if (!lines.get(indexDn).equals(lines.get(indexUp))) {isMirror = false; break;}
+                if (!lines.get(indexDn).equals(lines.get(indexUp)) &&
+                    !lines.get(indexDn).equals(null)) 
+                {
+                    isMirror = false; 
+                    break;
+                }
                 indexDn--;
             }
             return isMirror ? index : findMirror(++index, lines); // Here's the final return
