@@ -45,7 +45,8 @@ public class App {
     // (3)  Finds mirrors recursively. Only works with horizontal lines
     //      Transpose a paragraph (matrix) first to find vertical mirrors 
     //      Returns -1 if no mirrors are found or if index !valid. 
-    //      Else first index of repeating lines.
+    //      Else first index of repeating lines that keep mirroring each 
+    //      other until nearest line end.
     public static int findMirror(int index, List<String> lines) {
         if (index < 0 || index >= lines.size()-1) return -1;
         int indexUp = index, 
