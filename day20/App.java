@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Arrays;
 
-
 public class App {
     public static Map<String, Module> parseInput(List<String> lines) {
         Map<String, Module> moduleMap = new LinkedHashMap<>();
@@ -25,10 +24,8 @@ public class App {
                 } else {
                     moduleMap.put(label.substring(1), new Conjunction(label.substring(1), false, labels));
                 }
-
-            } else {
-                moduleMap.put(label, new Broadcaster(label, false, labels));
-            }
+            } 
+            else moduleMap.put(label, new Broadcaster(label, false, labels));
         }
         return moduleMap;
     }
