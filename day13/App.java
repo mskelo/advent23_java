@@ -46,7 +46,7 @@ public class App {
     //      Transpose a matrix first to find vertical mirrors 
     //      Returns -1 if no mirrors are found. Else first index of repeating lines.
     public static int findMirror(int index, List<String> lines) {
-        if (index == lines.size()-1) return -1;
+        if (index < 0 || index >= lines.size()-1) return -1;
         int indexUp = index, 
             indexDn = index;
         if (lines.get(index).equals(lines.get(index+1))) {
@@ -68,17 +68,15 @@ public class App {
         
         // (1) Parse paragraphs
         List<List<String>> paragraphs = parseParagraphs(lines);
-        long part1 = 0l;
+        int part1 = 0;
 
+        // First (2) transpose paragraph and try to (3) find vertical mirrors.
+        // If those are not found, check for horizontal mirrors.
         for (List<String> paragraph : paragraphs) {
             int verticalMirrorIndex = findMirror(0, transpose(paragraph));
             int horizontalMirrorIndex = findMirror(0, paragraph);
-            if (verticalMirrorIndex != -1) {
-                part1 += verticalMirrorIndex + 1;
-            } 
-            else {
-                part1 += 100 * (horizontalMirrorIndex + 1);
-            }
+            part1 +=  (verticalMirrorIndex != -1) ? verticalMirrorIndex + 1 : 
+                                                    100 * (horizontalMirrorIndex + 1);
         }
         System.out.println("Advent of Code 2023 // Day 13 // Matej Skelo");
         System.out.println("Part 1: " + part1);
